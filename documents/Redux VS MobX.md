@@ -6,14 +6,14 @@
 > Redux is a predictable state container for JavaScript apps.
 
 ### Redux的核心概念
-1. 单一的状态树
+1. 单一的状态树
 2. Action描述改变
 3. Reducer执行改变
 
-Redux的执行流程如下所示：UI展示页面基于Store的状态进行更新展示，用户交互促发事件（比如Click），事件通过Reducer派发Action更新Store。
+Redux的执行流程如下所示：UI展示页面基于Store的状态进行更新展示，用户交互促发事件（比如Click），事件通过Reducer派发Action更新Store。
 ![redux cores](./images/redux-cores.png)
 
-### 基于Redux的Todo程序实现
+### 基于Redux的Todo程序实现
 **1. Action部分**
 
 定义Action：（1）addTodo（添加Todo）（2）toggleTodo（切换Todo状态）
@@ -82,13 +82,13 @@ export default todoApp
 ```
 
 
-**3. 组件部分**
+**3. 组件部分**
 
 组件部分基于容器组件(Container Components)和展示组件(Presentational Components)相分离的开发思想。展示组件描述如何展示页面，负责页面的展示部分，数据直接来源于props；容器组件描述一个执行过程，数据来源于redux，主要作为Redux和React之间的一个桥接。
 
 - Todo展示组件
 
-展示组件部分主要用React做UI实现，同时为了保证props数据的准确性，额外添加了prop-types做了简单校验。
+展示组件部分主要用React做UI实现，同时为了保证props数据的准确性，额外添加了prop-types做了简单校验。
 
 **./components/Todo.jsx**
 
@@ -237,7 +237,7 @@ export default connect(
 
 **4. index入口文件**
 
-将容器放到一个组件，初始化Store并通过Provider传递Store到所有容器组件中。`window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()`为Redux调试工具的配置设置。
+将容器放到一个组件，初始化Store并通过Provider传递Store到所有容器组件中。`window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()`为Redux调试工具的配置设置。
 
 **./index.js**
 
@@ -283,12 +283,12 @@ export default class Redux extends Component {
 
 ### MobX核心概念
 
-“MobX 会对在**追踪函数**执行过程中读取现存的**可观察属性**做出反应”。
+“MobX 会对在**追踪函数**执行过程中读取现存的**可观察属性**做出反应”。
 
 - **可观察属性**：`observable(value)`、`@observable classProperty = value`
 - **追踪函数**： `(@)computed`、`autorun`、`when`、`reaction`、`(@)observer`
 
-MobX的执行流程比较简单，不要求将State存储在Store树中，只要求对需要跟踪变化的state属性打上`observable`标签，并在追踪函数中对可观察的state属性进行更新操作即可。
+MobX的执行流程比较简单，不要求将State存储在Store树中，只要求对需要跟踪变化的state属性打上`observable`标签，并在追踪函数中对可观察的state属性进行更新操作即可。
 
 ![mobx cores](./images/mobx-cores.png)
 
@@ -322,7 +322,7 @@ toggleTodo () {
 @observable todos = []
 ```
 
-定义TodoList的computed方法和action方法：
+定义TodoList的computed方法和action方法：
 
 ```
 @computed get unfinishedTodoCount () {
@@ -532,9 +532,9 @@ export default class Mobx extends Component {
 ### MobX-state-tree
 > Opinionated, transactional, MobX powered state container combining the best features of the immutable and mutable world for an optimal DX
 
-MobX提供的只是一种灵活操作State的方式，与Redux不同，不要求State数据全部存储在一个Tree上，而且由于MobX操作的数据是可变的，这些使得MobX在对数据进行可视化、回滚追踪状态、调试等过程变得较繁琐。
+MobX提供的只是一种灵活操作State的方式，与Redux不同，不要求State数据全部存储在一个Tree上，而且由于MobX操作的数据是可变的，这些使得MobX在对数据进行可视化、回滚追踪状态、调试等过程变得较繁琐。
 
-MST(MobX-state-tree) 提供了一种便捷优雅的state管理方案，它具有快照、中间件等方法，甚至还提供了MST Store转化成Redux Store的方法。下面基于MobX-state-tree对Todo程序实现进行进一步修改：
+MST(MobX-state-tree) 提供了一种便捷优雅的state管理方案，它具有快照、中间件等方法，甚至还提供了MST Store转化成Redux Store的方法。下面基于MobX-state-tree对Todo程序实现进行进一步修改：
 
 **./models/Todo.js**
 
@@ -589,7 +589,7 @@ Redux的State存储在一棵树上且数据不可变，需要通过繁琐重复�
 
 | Redux | MobX + MST |
 |-------|------|
-|一棵树存储|允许多棵树存储|
+|一棵树存储|允许多棵树存储|
 |面向过程的设计|面向对象的设计|
 |不可变数据|可变数据|
 |较多样板文件|较少样板文件|
