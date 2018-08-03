@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Redux VS MobX</title>
+
+
+<style type="text/css">
+body {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  padding: 30px; }
+
+body > *:first-child {
+  margin-top: 0 !important; }
+body > *:last-child {
+  margin-bottom: 0 !important; }
+
+a {
+  color: #4183C4; }
+a.absent {
+  color: #cc0000; }
+a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative; }
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUM2NjlDQjI4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUM2NjlDQjM4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QzY2OUNCMDg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QzY2OUNCMTg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsQhXeAAAABfSURBVHjaYvz//z8DJYCRUgMYQAbAMBQIAvEqkBQWXI6sHqwHiwG70TTBxGaiWwjCTGgOUgJiF1J8wMRAIUA34B4Q76HUBelAfJYSA0CuMIEaRP8wGIkGMA54bgQIMACAmkXJi0hKJQAAAABJRU5ErkJggg==) no-repeat 10px center;
+  text-decoration: none; }
+
+h1 tt, h1 code {
+  font-size: inherit; }
+
+h2 tt, h2 code {
+  font-size: inherit; }
+
+h3 tt, h3 code {
+  font-size: inherit; }
+
+h4 tt, h4 code {
+  font-size: inherit; }
+
+h5 tt, h5 code {
+  font-size: inherit; }
+
+h6 tt, h6 code {
+  font-size: inherit; }
+
+h1 {
+  font-size: 28px;
+  color: black; }
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #cccccc;
+  color: black; }
+
+h3 {
+  font-size: 18px; }
+
+h4 {
+  font-size: 16px; }
+
+h5 {
+  font-size: 14px; }
+
+h6 {
+  color: #777777;
+  font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 15px 0; }
+
+hr {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;
+  border: 0 none;
+  color: #cccccc;
+  height: 4px;
+  padding: 0;
+}
+
+body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+body > h1:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+  body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+  margin-top: 0; }
+
+li p.first {
+  display: inline-block; }
+li {
+  margin: 0; }
+ul, ol {
+  padding-left: 30px; }
+
+ul :first-child, ol :first-child {
+  margin-top: 0; }
+
+dl {
+  padding: 0; }
+  dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0;
+    margin: 15px 0 5px; }
+    dl dt:first-child {
+      padding: 0; }
+    dl dt > :first-child {
+      margin-top: 0; }
+    dl dt > :last-child {
+      margin-bottom: 0; }
+  dl dd {
+    margin: 0 0 15px;
+    padding: 0 15px; }
+    dl dd > :first-child {
+      margin-top: 0; }
+    dl dd > :last-child {
+      margin-bottom: 0; }
+
+blockquote {
+  border-left: 4px solid #dddddd;
+  padding: 0 15px;
+  color: #777777; }
+  blockquote > :first-child {
+    margin-top: 0; }
+  blockquote > :last-child {
+    margin-bottom: 0; }
+
+table {
+  padding: 0;border-collapse: collapse; }
+  table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr td {
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr th :first-child, table tr td :first-child {
+      margin-top: 0; }
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0; }
+
+img {
+  max-width: 100%; }
+
+span.frame {
+  display: block;
+  overflow: hidden; }
+  span.frame > span {
+    border: 1px solid #dddddd;
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin: 13px 0 0;
+    padding: 7px;
+    width: auto; }
+  span.frame span img {
+    display: block;
+    float: left; }
+  span.frame span span {
+    clear: both;
+    color: #333333;
+    display: block;
+    padding: 5px 0 0; }
+span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-center > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: center; }
+  span.align-center span img {
+    margin: 0 auto;
+    text-align: center; }
+span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px 0 0;
+    text-align: right; }
+  span.align-right span img {
+    margin: 0;
+    text-align: right; }
+span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left; }
+  span.float-left span {
+    margin: 13px 0 0; }
+span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right; }
+  span.float-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: right; }
+
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px; }
+
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent; }
+
+.highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+  pre code, pre tt {
+    background-color: transparent;
+    border: none; }
+
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+
+kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 11px;
+  line-height: 10px;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb
+}
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0 auto;
+    }
+}
+@media print {
+	table, pre {
+		page-break-inside: avoid;
+	}
+	pre {
+		word-wrap: break-word;
+	}
+}
+</style>
+
+
+</head>
+
+<body>
+
+<h1 id="toc_0">Redux VS MobX</h1>
+
+<h2 id="toc_1">Redux</h2>
+
+<p><img src="./images/redux.png" alt="redux logo"></p>
+
+<blockquote>
+<p>Redux is a predictable state container for JavaScript apps.</p>
+</blockquote>
+
+<h3 id="toc_2">Redux的核心概念</h3>
+
+<ol>
+<li>单一的状态树</li>
+<li>Action描述改变</li>
+<li>Reducer执行改变</li>
+</ol>
+
+<p>Redux的执行流程如下所示：UI展示页面基于Store的状态进行更新展示，用户交互促发事件（比如Click），事件通过Reducer派发Action更新Store。
+<img src="./images/redux-cores.png" alt="redux cores"></p>
+
+<h3 id="toc_3">基于Redux的Todo程序实现</h3>
+
+<p><strong>1. Action部分</strong></p>
+
+<p>定义Action：（1）addTodo（添加Todo）（2）toggleTodo（切换Todo状态）</p>
+
+<p><strong>./actions/index.js</strong></p>
+
+<div><pre><code class="language-none">export const addTodo = text =&gt; {
+  return {
+    type: &#39;ADD_TODO&#39;,
+    text
+  }
+}
+
+export const toggleTodo = id =&gt; {
+  return {
+    type: &#39;TOGGLE_TODO&#39;,
+    id
+  }
+}</code></pre></div>
+
+<p><strong>2. Reducer部分</strong></p>
+
+<p><strong>./reducers/todo.js</strong></p>
+
+<div><pre><code class="language-none">import uuid from &#39;node-uuid&#39;
+
+const todos = (state = [], action) =&gt; {
+  switch (action.type) {
+    case &#39;ADD_TODO&#39;:
+      return [
+        ...state,
+        {
+          id: uuid.v4(),
+          text: action.text,
+          completed: false
+        }
+      ]
+    case &#39;TOGGLE_TODO&#39;:
+      return state.map(todo =&gt;
+        (todo.id === action.id)
+          ? {...todo, completed: !todo.completed}
+          : todo
+      )
+    default:
+      return state
+  }
+}
+
+export default todos</code></pre></div>
+
+<p><strong>./reducers/index.js</strong></p>
+
+<div><pre><code class="language-none">import { combineReducers } from &#39;redux&#39;
+import todos from &#39;./todo&#39;
+
+const todoApp = combineReducers({
+  todos
+})
+
+export default todoApp</code></pre></div>
+
+<p><strong>3. 组件部分</strong></p>
+
+<p>组件部分基于容器组件(Container Components)和展示组件(Presentational Components)相分离的开发思想。展示组件描述如何展示页面，负责页面的展示部分，数据直接来源于props；容器组件描述一个执行过程，数据来源于redux，主要作为Redux和React之间的一个桥接。</p>
+
+<ul>
+<li>Todo展示组件</li>
+</ul>
+
+<p>展示组件部分主要用React做UI实现，同时为了保证props数据的准确性，额外添加了prop-types做了简单校验。</p>
+
+<p><strong>./components/Todo.jsx</strong></p>
+
+<div><pre><code class="language-none">import React from &#39;react&#39;
+import PropTypes from &#39;prop-types&#39;
+
+const Todo = ({ completed, text, onClick }) =&gt; (
+  &lt;li&gt;
+    &lt;input
+      type=&#39;checkbox&#39;
+      checked={completed}
+      onClick={onClick}
+    /&gt;
+    {text}
+  &lt;/li&gt;
+)
+
+Todo.propTypes = {
+  completed: PropTypes.bool.isRequired,
+  text: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired
+}
+
+export default Todo</code></pre></div>
+
+<p><strong>./components/TodoList.jsx</strong></p>
+
+<div><pre><code class="language-none">import React from &#39;react&#39;
+import PropTypes from &#39;prop-types&#39;
+import Todo from &#39;./Todo&#39;
+
+const TodoList = ({ todos, unfinishedTodoCount, onTodoClick }) =&gt; (
+  &lt;div&gt;
+    &lt;hr /&gt;
+    &lt;ul&gt;
+      {todos.map((todo) =&gt; (
+        &lt;Todo key={todo.id} {...todo} onClick={() =&gt; onTodoClick(todo.id)} /&gt;
+      ))}
+    &lt;/ul&gt;
+    Tasks left: {unfinishedTodoCount}
+  &lt;/div&gt;
+)
+
+TodoList.propTypes = {
+  todos: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      completed: PropTypes.bool.isRequired,
+      text: PropTypes.string.isRequired
+    }).isRequired
+  ).isRequired,
+  unfinishedTodoCount: PropTypes.number.isRequired,
+  onTodoClick: PropTypes.func.isRequired
+}
+
+export default TodoList</code></pre></div>
+
+<p><strong>./components/AddTodoForm.jsx</strong></p>
+
+<div><pre><code class="language-none">import React from &#39;react&#39;
+import PropTypes from &#39;prop-types&#39;
+
+let AddTodoForm = ({ submitData }) =&gt; {
+  let input
+
+  return (
+    &lt;form onSubmit={e =&gt; {
+      e.preventDefault()
+      submitData(input.value)
+      input.value = &#39;&#39;
+    }}&gt;
+      New Todo:
+      &lt;input
+        ref={node =&gt; { input = node }}
+        type=&#39;text&#39;
+      /&gt;
+      &lt;button type=&#39;submit&#39;&gt;Add&lt;/button&gt;
+    &lt;/form&gt;
+  )
+}
+
+AddTodoForm.propTypes = {
+  submitData: PropTypes.func.isRequired
+}
+
+export default AddTodoForm</code></pre></div>
+
+<ul>
+<li>Todo容器组件</li>
+</ul>
+
+<p>容器组件部分主要负责处理传递state和dispatch action，通过connect()将展示组件与Redux的state和action进行关联。</p>
+
+<p><strong>./containers/ListTodo.js</strong></p>
+
+<div><pre><code class="language-none">import { connect } from &#39;react-redux&#39;
+import { toggleTodo } from &#39;../actions&#39;
+import TodoList from &#39;../components/TodoList&#39;
+
+const mapStateToProps = state =&gt; {
+  return {
+    todos: state.todos,
+    unfinishedTodoCount: state.todos.filter(todo =&gt; !todo.completed).length
+  }
+}
+
+const mapDispatchToProps = dispatch =&gt; {
+  return {
+    onTodoClick: id =&gt; {
+      dispatch(toggleTodo(id))
+    }
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TodoList)</code></pre></div>
+
+<p><strong>./containers/AddTodo.js</strong></p>
+
+<div><pre><code class="language-none">import { connect } from &#39;react-redux&#39;
+import { addTodo } from &#39;../actions&#39;
+import AddTodoForm from &#39;../components/AddTodoForm&#39;
+
+const mapDispatchToProps = dispatch =&gt; {
+  return {
+    submitData: inputValue =&gt; {
+      inputValue.trim() &amp;&amp; dispatch(addTodo(inputValue))
+    }
+  }
+}
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(AddTodoForm)</code></pre></div>
+
+<p><strong>4. index入口文件</strong></p>
+
+<p>将容器放到一个组件，初始化Store并通过Provider传递Store到所有容器组件中。<code>window.__REDUX_DEVTOOLS_EXTENSION__ &amp;&amp; window.__REDUX_DEVTOOLS_EXTENSION__()</code>为Redux调试工具的配置设置。</p>
+
+<p><strong>./index.js</strong></p>
+
+<div><pre><code class="language-none">import React, { Component } from &#39;react&#39;
+import { Provider } from &#39;react-redux&#39;
+import { createStore } from &#39;redux&#39;
+
+import todoApp from &#39;./reducers&#39;
+import ListTodo from &#39;./containers/ListTodo&#39;
+import AddTodo from &#39;./containers/AddTodo&#39;
+
+export default class Redux extends Component {
+  constructor (props) {
+    super(props)
+
+    this.store = createStore(
+      todoApp,
+      window.__REDUX_DEVTOOLS_EXTENSION__ &amp;&amp; window.__REDUX_DEVTOOLS_EXTENSION__()
+    )
+  }
+
+  render () {
+    const store = this.store
+
+    return (
+      &lt;Provider store={store}&gt;
+        &lt;div&gt;
+          &lt;h1&gt;Redux&lt;/h1&gt;
+          &lt;AddTodo /&gt;
+          &lt;ListTodo /&gt;
+        &lt;/div&gt;
+      &lt;/Provider&gt;
+    )
+  }
+}</code></pre></div>
+
+<h2 id="toc_4">MobX</h2>
+
+<p><img src="./images/mobx.png" alt="Mobx logo"></p>
+
+<blockquote>
+<p>MobX is a simple, scalable and battle tested state management solution.</p>
+</blockquote>
+
+<h3 id="toc_5">MobX核心概念</h3>
+
+<p>“MobX 会对在<strong>追踪函数</strong>执行过程中读取现存的<strong>可观察属性</strong>做出反应”。</p>
+
+<ul>
+<li><strong>可观察属性</strong>：<code>observable(value)</code>、<code>@observable classProperty = value</code></li>
+<li><strong>追踪函数</strong>： <code>(@)computed</code>、<code>autorun</code>、<code>when</code>、<code>reaction</code>、<code>(@)observer</code></li>
+</ul>
+
+<p>MobX的执行流程比较简单，不要求将State存储在Store树中，只要求对需要跟踪变化的state属性打上<code>observable</code>标签，并在追踪函数中对可观察的state属性进行更新操作即可。</p>
+
+<p><img src="./images/mobx-cores.png" alt="mobx cores"></p>
+
+<h3 id="toc_6">基于MobX的Todo程序实现</h3>
+
+<p><strong>1. store设计</strong></p>
+
+<p>MobX对State的操作非常灵活，可以不用对State专门做存储管理，这在开发应用的State数据比较单一且数据量不大的情况下非常方便。但当State数据比较复杂时，就需要考虑将State数据抽取出来做专门的数据存储管理。</p>
+
+<p>这里基于Todo程序实现，简单设计了State的存储管理过程。</p>
+
+<p>(1) Todo：定义Todo模型。
+由于id属性不可变，不需要进行跟踪观察，因此只设置Todo的可观察属性为：completed、text。</p>
+
+<div><pre><code class="language-none">@observable completed = false
+@observable text = &#39;&#39;</code></pre></div>
+
+<p>定义Todo的action方法：toggleTodo()，MobX操作的灵活性，使可以直接在Todo模型中通过action调用this直接对当前实例的state值进行更新操作，通过<code>@actioin.bound</code>修饰符，保证<code>this</code>始终指向当前Todo实例。</p>
+
+<div><pre><code class="language-none">@action.bound
+toggleTodo () {
+  this.completed = !this.completed
+}</code></pre></div>
+
+<p>(2) TodoList：定义TodoList模型。
+设置TodoList的可观察属性：</p>
+
+<div><pre><code class="language-none">@observable todos = []</code></pre></div>
+
+<p>定义TodoList的computed方法和action方法：</p>
+
+<div><pre><code class="language-none">@computed get unfinishedTodoCount () {
+  return this.todos.filter(todo =&gt; !todo.completed).length
+}
+
+@action.bound
+addTodo (text) {
+  this.todos.push(new Todo(text))
+}</code></pre></div>
+
+<p><strong>完整的Todo和TodoList模型代码如下：</strong></p>
+
+<p><strong>./models/Todo.js</strong></p>
+
+<div><pre><code class="language-none">import { observable, action } from &#39;mobx&#39;
+import uuid from &#39;node-uuid&#39;
+
+export default class Todo {
+  @observable completed = false
+  @observable text = &#39;&#39;
+
+  constructor (text, id = uuid.v4(), completed = false) {
+    this.text = text
+    this.id = id
+    this.completed = completed
+  }
+
+  @action.bound
+  toggleTodo () {
+    this.completed = !this.completed
+  }
+}</code></pre></div>
+
+<p><strong>./models/TodoList.js</strong></p>
+
+<div><pre><code class="language-none">import { observable, computed, action } from &#39;mobx&#39;
+
+import Todo from &#39;./Todo&#39;
+
+export default class TodoList {
+  @observable todos = []
+
+  constructor (todoTexts = []) {
+    todoTexts.map(todoText =&gt; {
+      this.todos.push(new Todo(todoText))
+    })
+  }
+  
+  @computed get unfinishedTodoCount () {
+    return this.todos.filter(todo =&gt; !todo.completed).length
+  }
+
+  @action.bound
+  addTodo (text) {
+    this.todos.push(new Todo(text))
+  }
+}</code></pre></div>
+
+<p><strong>2. 组件设计</strong></p>
+
+<p><strong>./components/Todo.jsx</strong></p>
+
+<div><pre><code class="language-none">import React from &#39;react&#39;
+import PropTypes from &#39;prop-types&#39;
+
+const Todo = ({ todo }) =&gt; (
+  &lt;li&gt;
+    &lt;input
+      type=&#39;checkbox&#39;
+      checked={todo.completed}
+      onClick={todo.toggleTodo}
+    /&gt;
+    {todo.text}
+  &lt;/li&gt;
+)
+
+Todo.propTypes = {
+  todo: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    completed: PropTypes.bool.isRequired,
+    text: PropTypes.string.isRequired,
+    toggleTodo: PropTypes.func.isRequired
+  }).isRequired
+}
+
+export default Todo</code></pre></div>
+
+<p><strong>./components/TodoList.jsx</strong></p>
+
+<div><pre><code class="language-none">import React from &#39;react&#39;
+import PropTypes from &#39;prop-types&#39;
+import Todo from &#39;./Todo&#39;
+
+const TodoList = ({ todos, unfinishedTodoCount }) =&gt; (
+  &lt;div&gt;
+    &lt;hr /&gt;
+    &lt;ul&gt;
+      {todos.map((todo) =&gt; (
+        &lt;Todo key={todo.id} todo={todo} /&gt;
+      ))}
+    &lt;/ul&gt;
+    Tasks left: {unfinishedTodoCount}
+  &lt;/div&gt;
+)
+
+TodoList.propTypes = {
+  todos: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      completed: PropTypes.bool.isRequired,
+      text: PropTypes.string.isRequired
+    }).isRequired
+  ).isRequired,
+  unfinishedTodoCount: PropTypes.number.isRequired
+}
+
+export default TodoList</code></pre></div>
+
+<p><strong>./components/AddTodoForm.js</strong></p>
+
+<div><pre><code class="language-none">import React, { Component }from &#39;react&#39;
+import { action } from &#39;mobx&#39;
+import { observer, inject } from &#39;mobx-react&#39;
+
+@inject(&#39;store&#39;)
+@observer
+export default class AddTodoForm extends Component {
+  constructor (props) {
+    super(props)
+    this.newTodoTitle = &#39;&#39;
+  }
+
+  render () {
+    // functions
+    const handleFormSubmit = this.handleFormSubmit
+
+    return (
+      &lt;form onSubmit={handleFormSubmit}&gt;
+        New Todo:
+        &lt;input
+          type=&#39;text&#39;
+          ref={ (ref) =&gt; {this.newTodoTitle = ref} }
+        /&gt;
+        &lt;button type=&#39;submit&#39;&gt;Add&lt;/button&gt;
+      &lt;/form&gt;
+    )
+  }
+
+  @action.bound
+  handleFormSubmit = e =&gt; {
+    e.preventDefault()
+    this.newTodoTitle.value &amp;&amp; this.props.store.addTodo(this.newTodoTitle.value)
+    this.newTodoTitle.value = &#39;&#39;
+  }
+}</code></pre></div>
+
+<p><strong>3. index入口文件</strong></p>
+
+<p>初始化store；通过<code>mobx-react</code>的<code>Provider</code>传递store到全部子组件；给根组件添加<code>@observer</code>标签，保证<code>render()</code>里的可观察属性可相应做出跟踪反应。</p>
+
+<p><strong>./index.js</strong></p>
+
+<div><pre><code class="language-none">import React, { Component } from &#39;react&#39;
+import { Provider, observer } from &#39;mobx-react&#39;
+import DevTools from &#39;mobx-react-devtools&#39;
+import TodoList from &#39;./components/TodoList&#39;
+import AddTodoForm from &#39;./components/AddTodoForm&#39;
+import TodoListModel from &#39;./models/TodoList&#39;
+
+@observer
+export default class Mobx extends Component {
+  constructor (props) {
+    super(props)
+    this.store = new TodoListModel([&#39;Get Coffee&#39;, &#39;Write simpler code&#39;, &#39;Get a cookie as well&#39;])
+  }
+
+  render () {
+    const store = this.store
+
+    return (
+      &lt;Provider store={store}&gt;
+        &lt;div&gt;
+          &lt;h1&gt;MobX&lt;/h1&gt;
+          &lt;DevTools /&gt;
+          &lt;AddTodoForm /&gt;
+          &lt;TodoList todos={store.todos} unfinishedTodoCount={store.unfinishedTodoCount} /&gt;
+        &lt;/div&gt;
+      &lt;/Provider&gt;
+    )
+  }
+}</code></pre></div>
+
+<h3 id="toc_7">MobX-state-tree</h3>
+
+<blockquote>
+<p>Opinionated, transactional, MobX powered state container combining the best features of the immutable and mutable world for an optimal DX</p>
+</blockquote>
+
+<p>MobX提供的只是一种灵活操作State的方式，与Redux不同，不要求State数据全部存储在一个Tree上，而且由于MobX操作的数据是可变的，这些使得MobX在对数据进行可视化、回滚追踪状态、调试等过程变得较繁琐。</p>
+
+<p>MST(MobX-state-tree) 提供了一种便捷优雅的state管理方案，它具有快照、中间件等方法，甚至还提供了MST Store转化成Redux Store的方法。下面基于MobX-state-tree对Todo程序实现进行进一步修改：</p>
+
+<p><strong>./models/Todo.js</strong></p>
+
+<div><pre><code class="language-none">import { types } from &#39;mobx-state-tree&#39;
+
+export default types
+  .model(&#39;Todo&#39;, {
+    id: types.identifier,
+    completed: false,
+    text: types.string
+  })
+  .actions(self =&gt; {
+    return {
+      toggleTodo () {
+        self.completed = !self.completed
+      }
+    }
+  })</code></pre></div>
+
+<p><strong>./models/TodoList.js</strong></p>
+
+<div><pre><code class="language-none">import { observable, computed, action } from &#39;mobx&#39;
+
+import Todo from &#39;./Todo&#39;
+
+export default class TodoList {
+  @observable todos = []
+
+  constructor (todoTexts = []) {
+    todoTexts.map(todoText =&gt; {
+      this.todos.push(new Todo(todoText))
+    })
+  }
+  
+  @computed get unfinishedTodoCount () {
+    return this.todos.filter(todo =&gt; !todo.completed).length
+  }
+
+  @action.bound
+  addTodo (text) {
+    this.todos.push(new Todo(text))
+  }
+}</code></pre></div>
+
+<h2 id="toc_8">总结</h2>
+
+<p>Redux的State存储在一棵树上且数据不可变，需要通过繁琐重复的复制操作更新state；redux需要单独设计action和reducer过程，相对MobX需要更多的样板文件，编写代码的灵活性和工作量都相对较高；在不优化的情况下，MobX由于更新粒度更小，性能相对Redux更好。</p>
+
+<table>
+<thead>
+<tr>
+<th>Redux</th>
+<th>MobX + MST</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>一棵树存储</td>
+<td>允许多棵树存储</td>
+</tr>
+<tr>
+<td>面向过程的设计</td>
+<td>面向对象的设计</td>
+</tr>
+<tr>
+<td>不可变数据</td>
+<td>可变数据</td>
+</tr>
+<tr>
+<td>较多样板文件</td>
+<td>较少样板文件</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+import React from 'react'
+import PropTypes from 'prop-types'
+import Todo from './Todo'
+
+const TodoList = ({ todos, unfinishedTodoCount }) => (
+  <div>
+    <hr />
+    <ul>
+      {todos.map((todo) => (
+        <Todo key={todo.id} todo={todo} />
+      ))}
+    </ul>
+    Tasks left: {unfinishedTodoCount}
+  </div>
+)
+
+TodoList.propTypes = {
+  todos: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      completed: PropTypes.bool.isRequired,
+      text: PropTypes.string.isRequired
+    }).isRequired
+  ).isRequired,
+  unfinishedTodoCount: PropTypes.number.isRequired
+}
+
+export default TodoList
