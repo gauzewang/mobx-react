@@ -288,7 +288,7 @@ export default class Redux extends Component {
 - **可观察属性**：`observable(value)`、`@observable classProperty = value`
 - **追踪函数**： `(@)computed`、`autorun`、`when`、`reaction`、`(@)observer`
 
-MobX的执行流程比较简单，不要求将State存储在Store树中，只要求对需要跟踪变化的state属性打上`observable`标签，并在追踪函数中对可观察的state属性进行更新操作即可。
+MobX的执行流程比较简单，不要求将State存储在Store树中，只要求对需要跟踪变化的state属性打上`observable`标签，并在追踪函数中对可观察的state属性进行更新操作即可。
 
 ![mobx cores](./images/mobx-cores.png)
 
